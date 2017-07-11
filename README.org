@@ -1,0 +1,183 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:t f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
+#+TITLE: Orbit-CV LaTeX class for Résumés / CVs
+#+DATE: 2017-07-11 Tue
+#+AUTHOR: Martín Varela
+#+EMAIL: martin@varela.fi
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.91.1 (Org mode 9.0.5)
+
+
+* Overview
+ 
+This class implements a LaTeX port of the [[https://github.com/aerohub/hugo-orbit-theme][Hugo Orbit]] theme by [[https://github.com/aerohub][Pavel Kanyshev]].
+The implementation was loosely inspired by [[https://github.com/spagnuolocarmine][Carmine Spagnuolo's]]
+[[https://github.com/spagnuolocarmine/TwentySecondsCurriculumVitae-LaTex][TwentySecondsCurriculumVitae]] class. Unlike TwentySecondsCV, ~orbit-cv~ does not
+impose a one-page limit, and it works as expected with longer résumés / CVs.
+
+I tried to maintain the look and feel of the Orbit theme as much as possible,
+and the six color schemes implemented by it are available. 
+
+* Usage
+
+** Requirements
+   This class assumes a more or less current and full LiveTeX installation, and
+   does not require any additional packages if you have one. The typography is
+   based on the the [[https://fonts.google.com/specimen/Roboto][Roboto fonts]], so you should install those.
+
+   Otherwise, the only thing required is a small-ish picture in a square-ish
+   crop.
+** Getting Started
+
+  An example résumé is provided along with the class, and can be found in the
+  [[./orbit-cv.tex]] file. Below you will find an explanation of the commands
+  available.
+*** Basic personal data
+    You should provide at least your name, your job description / title, and a
+    profile picture. This can be done with the same commands as in
+    TwentySecondsCV:
+
+#+BEGIN_SRC LaTeX :exports code
+\cvname{Rusty Statue} %your name
+\cvjobtitle{Garden Statue}%your actual job position
+\profilepic{rusty.png} %path of profile pic
+#+END_SRC
+    Your contact information can be added with the ~\addContact~ macro, which
+    expects two parameters. The first argument is meant to be an icon, and the
+    second one should be some contact information, such as email, website URL,
+    github profile, etc. For example:
+#+BEGIN_SRC LaTeX :exports code
+\addContact{\faEnvelope{}}{\href{mailto:rusty@example.com}{rusty@example.com}}
+\addContact{\faPhone{}}{+1234567890}
+\addContact{\faGlobe{}}{\href{http://rusty.example.com}{http://rusty.example.com}}
+#+END_SRC
+
+    The contact information will be typeset as a table in the sidebar.
+
+   You can also add information about your education with the ~\addEducation~
+   macro, which takes three parameters: degree, school, and time period. For
+   example:
+   
+#+BEGIN_SRC LaTeX :exports code
+\addEducation{PhD. in Hanging Gardening}{Babylon University}{2002—2005}
+#+END_SRC
+
+   Language information can be added with the ~\addLanguage~ macro, as follows:
+
+#+BEGIN_SRC LaTeX :exports code
+\addLanguage{Spanish}{native}
+\addLanguage{English}{professional}
+\addLanguage{French}{professional}
+#+END_SRC
+
+   The first argument in each call should be a language, and the second one a
+   level of proficiency.
+
+   If you want to add hobbies or interests, it should be done with the
+   ~\addInterest~ macro, which takes a single parameter. For instance:
+
+#+BEGIN_SRC LaTeX :exports code
+\addInterest{\faCutlery{} Cooking}
+\addInterest{\faCamera{} Photography}
+#+END_SRC
+
+*** Building the Sidebar
+
+  Once you have entered your profile information, you should invoke the
+  ~\makeprofile~ macro, which will handle the building of the sidebar.
+
+*** Main Sections and Helper Macros
+  
+    You can then proceed to add the main content of your résumé or CV, namely
+    something about your career, experience, projects, etc.
+    The class provides a few macros to help you format those items in a
+    consistent manner. 
+    The ~\workexp~ macro allows you to add an item of work experience. It takes
+    four parameters, namely a title, a time period, a company name, and a
+    description of the work done / achievements, etc. A usage example could be:
+
+#+BEGIN_SRC LaTeX :exports code
+\workexp{Senior Scarecrow}{2017 — present}{The Hanging Garden, Inc.}{
+As a Senior Scarecrow at the Hanging Garden, I took care of scaring off all the 
+birds and other vermin that came around. I did this so well, that I won
+the coveted ``scarecrow of the month'' award.
+}
+#+END_SRC
+
+
+   The ~\project~ macro takes three paramters: an URL, a project title, and a
+   description. As of this version the URL is not optional, so if one is not
+   available for the project, it could be made to point to the output pdf
+   itself, or some such.
+
+#+BEGIN_SRC LaTeX :exports code
+\project{https://www.example.com/blueGarden}{The Blue Garden}{
+In the ``Blue Garden'' project, I took care of delivering all the blue fruits and 
+seeds, as well as implementing the irrigation plan.
+}
+#+END_SRC
+
+   If you have publications, you can use the ~\publication~ macro, which takes
+   three parameters: a name, an author list, and a venue. For example:
+
+#+BEGIN_SRC LaTeX :exports code
+\publication{Fair Gardening}{R. Statue et al.}{IEEE Gardening Letters, vol. 21, no. 1, pp. 184-187. Jan. 2017}
+#+END_SRC
+
+   At some point I may implement BibTeX compatibility for this, but for now this
+   will have to do.
+
+*** Skills
+    If you want to present skills in an ``infographic-like'' manner, you can use
+    the ~\addSkill~ and ~\ListSkills~ macros. The first takes two parameters, a
+    skill name and a skill level, the latter being a number between 0 and 1.
+    Once the desired skills have been added, the ~\ListSkills~ macro can be
+    called to render the list of skills (this is done in a tabular environment,
+    so it may have issues if it overlaps a page break).
+
+#+BEGIN_SRC LaTeX :exports code
+\addSkill{\LaTeX}{0.95}
+\addSkill{Scaring Crows}{0.85}
+\addSkill{Gardening}{0.92}
+\addSkill{Standing Still}{0.99}
+\ListSkills{}
+#+END_SRC
+
+*** Color Schemes
+
+  The =orbit-cv= class includes six color schemes, like those provided by the
+  =Orbit= theme. The first scheme is the default, and the others can be accessed
+  via one of the following macros (uncomment as needed)
+#+BEGIN_SRC LaTeX :exports code
+% Uncomment one of these if you'd rather
+% not use the default color scheme
+
+%\colorschemeTwo
+%\colorschemeThree
+%\colorschemeFour
+%\colorschemeFive
+%\colorschemeSix
+#+END_SRC
+
+The resulting outputs can be seen below.
+
+[[./output_samples/colorscheme1.png]]
+[[./output_samples/colorscheme2.png]]
+[[./output_samples/colorscheme3.png]]
+[[./output_samples/colorscheme4.png]]
+[[./output_samples/colorscheme5.png]]
+[[./output_samples/colorscheme6.png]]
+
+* Longer Samples  
+
+  You can see an example résumé in the [[./orbit-cv.pdf][orbit-cv.pdf]] file, and in the figures below.
+
+  [[./output_samples/page1.png]]
+  [[./output_samples/page2.png]]
+  [[./output_samples/page3.png]]
+
+  

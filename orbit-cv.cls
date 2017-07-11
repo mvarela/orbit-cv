@@ -150,6 +150,7 @@
 }
 
 \newcommand{\ListSkills}{
+  \par
   \renewcommand{\dtlheaderformat}[1]{}
   \renewcommand{\arraystretch}{1.3}
   \DTLdisplaydb{skills}
