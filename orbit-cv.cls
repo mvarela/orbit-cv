@@ -43,7 +43,7 @@
 
 \DTLnewdb{contact}
 \DTLnewdb{education}
-\DTLnewdb{languages}
+\DTLnewdb{cvlanguages}
 \DTLnewdb{interests}
 \DTLnewdb{skills}
 
@@ -94,9 +94,9 @@
 
 
 \newcommand{\addLanguage}[2]{
-   \DTLnewrow{languages}%
-   \DTLnewdbentry{languages}{language}{#1}%
-   \DTLnewdbentry{languages}{level}{#2}%
+   \DTLnewrow{cvlanguages}%
+   \DTLnewdbentry{cvlanguages}{cvlanguage}{#1}%
+   \DTLnewdbentry{cvlanguages}{level}{#2}%
 }
 
 \newcommand{\dispLang}[2]{#1
@@ -108,8 +108,8 @@
   \vspace{0.3cm}
   \raggedright
   \footnotesize
-  \DTLforeach{languages}{\language=language,\level=level}{
-    \dispLang{\language}{\level}
+  \DTLforeach{cvlanguages}{\cvlanguage=cvlanguage,\level=level}{
+    \dispLang{\cvlanguage}{\level}
   }
   \vspace{0.5cm}
   \normalsize
