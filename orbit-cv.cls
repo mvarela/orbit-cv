@@ -353,10 +353,22 @@
 %%%%%%%%%%
 \RequirePackage[right=7.3cm,top=1.5cm,left=1cm,bottom=1.5cm,nohead,nofoot,asymmetric,bindingoffset=0.1mm]{geometry}
 
-\RequirePackage{hyperref}
 \AtBeginShipout{\dosidebar}
 \newcommand{\makeprofile}{
   \AtBeginShipoutFirst{\doprofile}
   \addfontfeatures{Color=darkgray}
+  \hypersetup{
+    colorlinks,
+    linkcolor={sidebarbtm},
+    citecolor={sidebarbtm},
+    urlcolor={sidebarbtm}
+  }
 }
- 
+
+\RequirePackage{hyperref}
+\hypersetup{
+  colorlinks,
+  linkcolor={sidecolor},
+  citecolor={sidecolor},
+  urlcolor={sidecolor}
+}
