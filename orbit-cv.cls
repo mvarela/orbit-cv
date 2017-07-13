@@ -358,7 +358,6 @@
   \AtBeginShipoutFirst{\doprofile}
   \addfontfeatures{Color=darkgray}
   \hypersetup{
-    colorlinks,
     linkcolor={sidebarbtm},
     citecolor={sidebarbtm},
     urlcolor={sidebarbtm}
@@ -367,6 +366,7 @@
 
 \RequirePackage{hyperref}
 \hypersetup{
+  pdfencoding=unicode,
   colorlinks,
   linkcolor={sidecolor},
   citecolor={sidecolor},
