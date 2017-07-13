@@ -36,6 +36,10 @@ and the six color schemes implemented by it are available.
   An example résumé is provided along with the class, and can be found in the
   [[./orbit-cv.tex]] file. Below you will find an explanation of the commands
   available.
+*** Options
+    The ~leftSidebar~ option can be passed to this class to render the sidebar
+    on the left side of the page, as opposed to the right side, which is the default.
+
 *** Basic personal data
     You should provide at least your name, your job description / title, and a
     profile picture. This can be done with the same commands as in
