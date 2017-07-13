@@ -257,6 +257,36 @@
 
 %%% TSCV stuff above
 
+
+%%% margins for geometry
+\newlength{\rightMargin}
+\setlength{\rightMargin}{7.3cm}
+\newlength{\leftMargin}
+\setlength{\leftMargin}{1cm}
+
+%%% Sidebar dimensions and positon
+\newlength{\sidebarOffset}
+\setlength{\sidebarOffset}{3cm}
+\newlength{\sidebarTopHeight}
+\setlength{\sidebarTopHeight}{6.7cm}
+\newcommand{\btbSidebar}{\begin{textblock}{4}[0,0](16.6,0)}
+\newcommand{\etbSidebar}{\end{textblock}}
+
+
+%%% Sidebar Switching
+\newcommand{\leftSidebar}{
+ \renewcommand{\btbSidebar}{\begin{textblock}{4}[0,0](0.5,0)}
+ \setlength{\sidebarOffset}{1.5cm}
+ \setlength{\rightMargin}{1cm}
+ \setlength{\leftMargin}{6.7cm}
+ \newgeometry{right=\rightMargin,top=1.5cm,left=\leftMargin,bottom=1.5cm,nohead,nofoot,asymmetric,bindingoffset=0.1mm}
+%\RequirePackage[right=\rightMargin,top=1.5cm,left=\leftMargin,bottom=1.5cm,nohead,nofoot,asymmetric,bindingoffset=0.1mm]{geometry}
+}
+
+
+%% For some reason can't get this to work, complains
+%% about missing units, so it's hard-coded for now
+%\let\textBlockOffset{16.5cm}
   
 \newcommand{\workexp}[4]{
   { \textbf{#1}} \hfill \addfontfeatures{Color=textsubdued} #2 \par
@@ -281,19 +311,11 @@
 }
 
 
-\newlength{\sidebarOffset}
-\setlength{\sidebarOffset}{3cm}
-\newlength{\sidebarTopHeight}
-\setlength{\sidebarTopHeight}{6.7cm}
-
-%% For some reason can't get this to work, complains
-%% about missing units, so it's hard-coded for now
-%\let\textBlockOffset{16.5cm}
 
 \newcommand{\dosidebar}
 {
-%\newpage
-\begin{textblock}{4}[0,0](16.6,0)
+\btbSidebar{}
+%\begin{textblock}{4}[0,0](16.6,0)
 
 \begin{tikzpicture}[remember picture,overlay]
    	 \node [rectangle, fill=sidebarbtm, anchor=north, minimum width=6.90cm, minimum height=\paperheight+1cm] (box) at (\sidebarOffset,0.5cm){};
@@ -301,57 +323,61 @@
 
 \centering
 \vspace{3mm}
-\end{textblock}
+\etbSidebar{}
+%\end{textblock}
 }
 
 \newcommand{\doprofile}
 % This vbox is necessary to use the atbegshi stuff, otherwise it complains about
 % some ``improper \prevdepth'''
 {\vbox{
-\begin{textblock}{4}[0,0](16.6,0)
+    \btbSidebar{}
+    % \begin{textblock}{4}[0,0](16.6,0)
 
-\begin{tikzpicture}[remember picture,overlay]
-   	 \node [rectangle, fill=sidebarbtm, anchor=north, minimum width=6.90cm, minimum height=\paperheight+1cm] (box) at (\sidebarOffset,0.5cm){};
-   	 \node [rectangle, fill=sidebartop, anchor=north, minimum width=6.90cm, minimum height=\sidebarTopHeight] (box) at (\sidebarOffset,0.5cm){};
-\end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node [rectangle, fill=sidebarbtm, anchor=north, minimum width=6.90cm, minimum height=\paperheight+1cm] (box) at (\sidebarOffset,0.5cm){};
+      \node [rectangle, fill=sidebartop, anchor=north, minimum width=6.90cm, minimum height=\sidebarTopHeight] (box) at (\sidebarOffset,0.5cm){};
+    \end{tikzpicture}
 
-\begin{flushleft}
-\hspace{13pt}
-\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-    \clip (420/2, 420/2) circle (400/2);
+    \begin{flushleft}
+      \hspace{13pt}
+      \begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+        \clip (420/2, 420/2) circle (400/2);
         \node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=3.5cm]{\givenprofilepic}};
-\end{tikzpicture}
+      \end{tikzpicture}
 
-\centering
-\vspace{3mm}
-{\Huge \setmainfont[Color=sidecolor]{Roboto
-    Black}\givencvname{}\setmainfont[Ligatures=TeX,Color=sidecolor]{Roboto Light}}
+      \centering
+      \vspace{3mm}
+      {\Huge \setmainfont[Color=sidecolor]{Roboto
+          Black}\givencvname{}\setmainfont[Ligatures=TeX,Color=sidecolor]{Roboto Light}}
 
-\addfontfeatures{Color=sidebarsubdued}
-\givencvjobtitle
-\addfontfeatures{Color=sidecolor}
-\color{sidecolor}
+      \addfontfeatures{Color=sidebarsubdued}
+      \givencvjobtitle
+      \addfontfeatures{Color=sidecolor}
+      \color{sidecolor}
 
-\ListContacts{}
+      \ListContacts{}
 
-\ListEducation{}
+      \ListEducation{}
 
-\ListLanguages{}
+      \ListLanguages{}
 
-\ListInterests{}
+      \ListInterests{}
 
-\end{flushleft}
+    \end{flushleft}
 
-\end{textblock}}
-\setmainfont[Ligatures=TeX,Color=darkgray]{Roboto Light}
- }
+    % \end{textblock}}
+    \etbSidebar{}
+  }
+  \setmainfont[Ligatures=TeX,Color=darkgray]{Roboto Light}
+}
 
 \pagestyle{empty}
 
 %%%%%%%%%%
 % Geometry
 %%%%%%%%%%
-\RequirePackage[right=7.3cm,top=1.5cm,left=1cm,bottom=1.5cm,nohead,nofoot,asymmetric,bindingoffset=0.1mm]{geometry}
+\RequirePackage[right=\rightMargin,top=1.5cm,left=\leftMargin,bottom=1.5cm,nohead,nofoot,asymmetric,bindingoffset=0.1mm]{geometry}
 
 \AtBeginShipout{\dosidebar}
 \newcommand{\makeprofile}{
@@ -372,3 +398,12 @@
   citecolor={sidecolor},
   urlcolor={sidecolor}
 }
+
+
+
+%%%%%%%%%%%%%%%
+% Class Options
+%%%%%%%%%%%%%%%
+
+\DeclareOption{leftSidebar}{\leftSidebar{}}
+\ProcessOptions
