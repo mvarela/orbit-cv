@@ -74,7 +74,7 @@
 }
 
 \newcommand{\dispEdu}[3]{#1\par
-  {\addfontfeatures{Color=sidebarsubdued}#2, #3 \par
+  {\addfontfeatures{Color=sidebarsubdued}#2 \par #3 \par
     \addfontfeatures{Color=sidecolor}  \vspace{0.25cm}}}
 
 \newcommand{\ListEducation}{
