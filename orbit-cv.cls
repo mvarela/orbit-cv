@@ -381,7 +381,7 @@
 
 \AtBeginShipout{\dosidebar}
 \newcommand{\makeprofile}{
-  \AtBeginShipoutFirst{\doprofile}
+  \AtBeginShipoutNext{\doprofile}
   \addfontfeatures{Color=darkgray}
   \hypersetup{
     linkcolor={sidebarbtm},
